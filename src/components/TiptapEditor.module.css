@@ -1,0 +1,307 @@
+.editorWrap {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ── Format bar ── */
+.editorBar {
+  display: flex;
+  align-items: center;
+  padding: 4px 20px;
+  border-bottom: 1px solid var(--ui-border);
+  background: var(--ui-header-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  flex-shrink: 0;
+  gap: 2px;
+  overflow-x: auto;
+  min-height: 38px;
+}
+
+.formatBtns {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+
+.fmtBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 30px;
+  font-family: var(--ui-font);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ui-text-muted);
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  position: relative;
+}
+
+.fmtBtn:hover {
+  background: var(--ui-btn-hover);
+  color: var(--ui-text);
+}
+
+.fmtBtn.active {
+  background: var(--ui-accent-soft);
+  color: var(--ui-accent);
+}
+
+.fmtBtn:active {
+  transform: scale(0.92);
+}
+
+.sep {
+  width: 1px;
+  height: 20px;
+  background: var(--ui-border);
+  margin: 0 6px;
+  flex-shrink: 0;
+}
+
+/* ── Editor content ── */
+.editorContent {
+  flex: 1;
+  overflow: auto;
+  background: var(--md-color-bg, #fff);
+}
+
+.editorContent .markdown-body {
+  background: transparent;
+  min-height: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.editorContent .markdown-body :global(.tiptap) {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: var(--md-page-padding, 48px 56px);
+  min-height: 400px;
+  caret-color: var(--ui-accent, #c2410c);
+}
+
+.editorContent .markdown-body :global(.tiptap):focus,
+.editorContent .markdown-body :global(.tiptap):focus-visible,
+.editorContent .markdown-body :global(.tiptap) :focus,
+.editorContent .markdown-body :global(.tiptap) :focus-visible {
+  outline: none !important;
+}
+
+.editorContent .markdown-body :global(.tiptap) > *:first-child {
+  margin-top: 0;
+}
+
+/* Current line highlight */
+.editorContent .markdown-body :global(.tiptap .has-focus) {
+  border-radius: 3px;
+  background: rgba(194, 65, 12, 0.04);
+}
+
+/* Placeholder */
+.editorContent .markdown-body :global(.tiptap p.is-editor-empty:first-child::before) {
+  content: attr(data-placeholder);
+  float: left;
+  color: var(--ui-text-muted);
+  pointer-events: none;
+  height: 0;
+  font-style: italic;
+  opacity: 0.6;
+}
+
+/* ── Image node styling ── */
+.editorContent :global(.image-resizer) {
+  display: inline-flex;
+  position: relative;
+  cursor: default;
+  border-radius: 4px;
+  line-height: 0;
+  margin: 4px 0;
+}
+
+.editorContent :global(.image-resizer:hover) {
+  outline: none;
+}
+
+.editorContent :global(.image-resizer img) {
+  max-width: 100%;
+  display: block;
+  border-radius: 4px;
+  cursor: grab;
+}
+
+.editorContent :global(.image-resizer img:active) {
+  cursor: grabbing;
+}
+
+/* Resize corner handles */
+.editorContent :global(.image-resizer .resize-trigger) {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: var(--ui-accent, #c2410c);
+  border: 2px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.editorContent :global(.image-resizer:hover .resize-trigger) {
+  opacity: 1;
+}
+
+.editorContent :global(.image-resizer .resize-trigger:hover) {
+  transform: scale(1.3);
+}
+
+/* Drag drop feedback */
+.editorContent :global(.ProseMirror-selectednode) {
+  outline: none !important;
+}
+
+.editorContent :global(.ProseMirror-gapcursor) {
+  display: block;
+  position: relative;
+  height: 2px;
+  background: var(--ui-accent, #c2410c);
+  margin: 8px 0;
+  border-radius: 1px;
+  animation: gapcursorBlink 1.2s ease infinite;
+}
+
+@keyframes gapcursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* Drop cursor indicator */
+.editorContent :global(.ProseMirror-dropcursor) {
+  color: var(--ui-accent, #c2410c) !important;
+}
+
+/* ── Code block ── */
+.editorContent :global(.tiptap pre) {
+  background: var(--md-color-code-block-bg, #f8f8f8);
+  border-radius: 8px;
+  padding: 18px 20px;
+  font-family: var(--md-code-font-family, 'JetBrains Mono', monospace);
+  font-size: var(--md-code-font-size, 0.875em);
+  line-height: 1.6;
+  overflow-x: auto;
+  border: 1px solid var(--md-color-border, #e5e5e5);
+}
+
+.editorContent :global(.tiptap pre code) {
+  background: none;
+  padding: 0;
+  font-size: inherit;
+  color: inherit;
+}
+
+/* ── Table ── */
+.editorContent :global(.tiptap table) {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1em 0;
+}
+
+.editorContent :global(.tiptap th),
+.editorContent :global(.tiptap td) {
+  border: 1px solid var(--md-color-table-border, #ddd);
+  padding: 10px 14px;
+  text-align: left;
+  position: relative;
+}
+
+.editorContent :global(.tiptap th) {
+  font-weight: 600;
+  background: var(--md-color-table-header-bg, #f8f8f8);
+}
+
+/* ── Task list ── */
+.editorContent :global(.tiptap ul[data-type="taskList"]) {
+  list-style: none;
+  padding-left: 0;
+}
+
+.editorContent :global(.tiptap ul[data-type="taskList"] li) {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.editorContent :global(.tiptap ul[data-type="taskList"] li input[type="checkbox"]) {
+  margin-top: 4px;
+  accent-color: var(--ui-accent, #c2410c);
+}
+
+/* ── Horizontal rule ── */
+.editorContent :global(.tiptap hr) {
+  border: none;
+  border-top: 1px solid var(--md-color-border, #e5e5e5);
+  margin: 2em 0;
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .editorContent {
+    padding: 16px;
+  }
+
+  .editorContent .markdown-body :global(.tiptap) {
+    padding: 24px 20px;
+  }
+
+  .editorBar {
+    padding: 4px 12px;
+  }
+}
+
+/* ── Print ── */
+@media print {
+  .editorBar {
+    display: none !important;
+  }
+
+  .editorWrap {
+    height: auto !important;
+    overflow: visible !important;
+    display: block !important;
+  }
+
+  .editorContent {
+    height: auto !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    background: transparent !important;
+    flex: none !important;
+  }
+
+  .editorContent .markdown-body {
+    max-width: none !important;
+  }
+}
+
+/* ── PDF export ── */
+:global([data-pdf-export]) .editorContent {
+  background: #ffffff !important;
+}
+
+:global([data-pdf-export]) .editorContent .markdown-body {
+  max-width: none !important;
+}
+
+:global([data-pdf-export]) .editorContent .markdown-body :global(.has-focus) {
+  background: transparent !important;
+  box-shadow: none !important;
+}

@@ -1,0 +1,65 @@
+.theme-github {
+  --md-font-family: 'Open Sans', 'Clear Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --md-font-size: 16px;
+  --md-line-height: 1.6;
+  --md-page-padding: 30px 40px;
+  --md-max-width: 860px;
+  --md-color-text: #333333;
+  --md-color-bg: #ffffff;
+  --md-color-heading: #333333;
+  --md-color-link: #4183c4;
+  --md-color-muted: #777777;
+  --md-color-border: #eeeeee;
+  --md-color-blockquote-border: #dfe2e5;
+  --md-color-blockquote-bg: transparent;
+  --md-color-code-bg: #f3f4f4;
+  --md-color-code-text: inherit;
+  --md-color-code-block-bg: #f8f8f8;
+  --md-color-table-border: #dfe2e5;
+  --md-color-table-header-bg: #f8f8f8;
+  --md-color-table-stripe-bg: transparent;
+  --md-heading-font-weight: bold;
+  --md-code-font-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  --md-code-font-size: 0.9em;
+  --md-code-border-radius: 3px;
+}
+
+.theme-github .markdown-body h1 { font-size: 2.25em; }
+.theme-github .markdown-body h2 { font-size: 1.75em; }
+.theme-github .markdown-body h3 { font-size: 1.5em; }
+.theme-github .markdown-body h4 { font-size: 1.25em; }
+
+.theme-github .markdown-body code {
+  border: 1px solid #e7eaed;
+}
+
+.theme-github .markdown-body pre.hljs {
+  border: 1px solid #e7eaed;
+}
+
+.theme-github .markdown-body hr {
+  height: 2px;
+  background: #e7e7e7;
+  border: none;
+}
+
+/* highlight.js github colors */
+.theme-github .hljs { color: #24292e; }
+.theme-github .hljs-comment,
+.theme-github .hljs-quote { color: #6a737d; font-style: italic; }
+.theme-github .hljs-keyword,
+.theme-github .hljs-selector-tag { color: #d73a49; }
+.theme-github .hljs-string,
+.theme-github .hljs-addition { color: #032f62; }
+.theme-github .hljs-number,
+.theme-github .hljs-literal { color: #005cc5; }
+.theme-github .hljs-built_in,
+.theme-github .hljs-type { color: #6f42c1; }
+.theme-github .hljs-title,
+.theme-github .hljs-section { color: #6f42c1; font-weight: 600; }
+.theme-github .hljs-attr,
+.theme-github .hljs-attribute { color: #005cc5; }
+.theme-github .hljs-name,
+.theme-github .hljs-tag { color: #22863a; }
+.theme-github .hljs-deletion { color: #b31d28; background: #ffeef0; }
+.theme-github .hljs-meta { color: #735c0f; }

@@ -1,0 +1,141 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --ui-font: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  --ui-font-display: 'Fraunces', Georgia, serif;
+  --ui-font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+
+  --ui-bg: #faf8f5;
+  --ui-surface: #f2eeea;
+  --ui-header-bg: rgba(250, 248, 245, 0.85);
+  --ui-text: #292524;
+  --ui-text-secondary: #78716c;
+  --ui-text-muted: #a8a29e;
+  --ui-border: #e7e5e4;
+  --ui-border-subtle: #f0eeeb;
+
+  --ui-accent: #c2410c;
+  --ui-accent-hover: #ea580c;
+  --ui-accent-soft: rgba(194, 65, 12, 0.08);
+
+  --ui-btn-bg: rgba(41, 37, 36, 0.04);
+  --ui-btn-hover: rgba(41, 37, 36, 0.08);
+  --ui-btn-border: rgba(41, 37, 36, 0.1);
+
+  --ui-editor-bg: #1c1917;
+  --ui-editor-text: #d6cfc4;
+  --ui-editor-muted: #57534e;
+  --ui-editor-line: rgba(255, 255, 255, 0.04);
+
+  --ui-shadow-sm: 0 1px 2px rgba(28, 25, 23, 0.05);
+  --ui-shadow-md: 0 4px 16px rgba(28, 25, 23, 0.08);
+  --ui-shadow-lg: 0 8px 32px rgba(28, 25, 23, 0.1), 0 2px 8px rgba(28, 25, 23, 0.04);
+
+  --ui-radius: 8px;
+  --ui-radius-sm: 5px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ui-bg: #171412;
+    --ui-surface: #1e1a17;
+    --ui-header-bg: rgba(23, 20, 18, 0.9);
+    --ui-text: #e7e5e4;
+    --ui-text-secondary: #a8a29e;
+    --ui-text-muted: #57534e;
+    --ui-border: #2c2825;
+    --ui-border-subtle: #231f1d;
+
+    --ui-accent: #ea580c;
+    --ui-accent-hover: #f97316;
+    --ui-accent-soft: rgba(234, 88, 12, 0.1);
+
+    --ui-btn-bg: rgba(231, 229, 228, 0.05);
+    --ui-btn-hover: rgba(231, 229, 228, 0.08);
+    --ui-btn-border: rgba(231, 229, 228, 0.08);
+
+    --ui-editor-bg: #0f0d0b;
+    --ui-editor-text: #c4bdb3;
+    --ui-editor-muted: #44403c;
+    --ui-editor-line: rgba(255, 255, 255, 0.03);
+
+    --ui-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+    --ui-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.3);
+    --ui-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.3), 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+}
+
+html, body, #root {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--ui-font);
+  font-size: 14px;
+  color: var(--ui-text);
+  background: var(--ui-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--ui-bg);
+}
+
+::selection {
+  background: var(--ui-accent-soft);
+  color: var(--ui-accent);
+}
+
+.ProseMirror,
+.ProseMirror:focus,
+.ProseMirror:focus-visible,
+.ProseMirror-focused,
+[contenteditable],
+[contenteditable]:focus,
+[contenteditable]:focus-visible {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--ui-border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ui-text-muted);
+}
+
+@media print {
+  html, body, #root {
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .app {
+    height: auto !important;
+    overflow: visible !important;
+    display: block !important;
+  }
+}

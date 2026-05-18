@@ -1,0 +1,82 @@
+.theme-newsprint {
+  --md-font-family: 'PT Serif', 'Times New Roman', Times, serif;
+  --md-font-size: 16px;
+  --md-line-height: 1.5;
+  --md-page-padding: 30px 40px 100px;
+  --md-max-width: 40em;
+  --md-color-text: #1f0909;
+  --md-color-bg: #f3f2ee;
+  --md-color-heading: #1f0909;
+  --md-color-link: #065588;
+  --md-color-muted: #656565;
+  --md-color-border: #c5c5c5;
+  --md-color-blockquote-border: #bababa;
+  --md-color-blockquote-bg: transparent;
+  --md-color-code-bg: #dadada;
+  --md-color-code-text: inherit;
+  --md-color-code-block-bg: #dadada;
+  --md-color-table-border: #c5c5c5;
+  --md-color-table-header-bg: #dadada;
+  --md-color-table-stripe-bg: #e8e7e7;
+  --md-heading-font-weight: bold;
+  --md-code-font-family: Menlo, 'Ubuntu Mono', Consolas, 'Courier New', monospace;
+  --md-code-font-size: 0.875em;
+  --md-code-border-radius: 3px;
+}
+
+.theme-newsprint .markdown-body h1 {
+  font-size: 1.875em;
+  font-weight: normal;
+  border-bottom: 1px solid #c5c5c5;
+  padding-bottom: 0.8125em;
+  margin-top: 2em;
+}
+
+.theme-newsprint .markdown-body h2 {
+  font-size: 1.3125em;
+  border-bottom: none;
+}
+
+.theme-newsprint .markdown-body h3 {
+  font-size: 1.3125em;
+  font-weight: normal;
+}
+
+.theme-newsprint .markdown-body h4 { font-size: 1.125em; }
+
+.theme-newsprint .markdown-body blockquote {
+  font-style: italic;
+  border-left-width: 5px;
+  margin-left: 2em;
+  padding-left: 1em;
+}
+
+.theme-newsprint .markdown-body pre.hljs {
+  margin-left: 2em;
+  border: none;
+}
+
+.theme-newsprint .markdown-body hr {
+  border-top: 1px solid #c5c5c5;
+}
+
+/* highlight.js warm tones for newsprint */
+.theme-newsprint .hljs { color: #1f0909; }
+.theme-newsprint .hljs-comment,
+.theme-newsprint .hljs-quote { color: #888; font-style: italic; }
+.theme-newsprint .hljs-keyword,
+.theme-newsprint .hljs-selector-tag { color: #8b3a3a; font-weight: 600; }
+.theme-newsprint .hljs-string,
+.theme-newsprint .hljs-addition { color: #065588; }
+.theme-newsprint .hljs-number,
+.theme-newsprint .hljs-literal { color: #8b3a3a; }
+.theme-newsprint .hljs-built_in,
+.theme-newsprint .hljs-type { color: #553c9a; }
+.theme-newsprint .hljs-title,
+.theme-newsprint .hljs-section { color: #065588; font-weight: 600; }
+.theme-newsprint .hljs-attr,
+.theme-newsprint .hljs-attribute { color: #8b3a3a; }
+.theme-newsprint .hljs-name,
+.theme-newsprint .hljs-tag { color: #276749; }
+.theme-newsprint .hljs-deletion { color: #c53030; }
+.theme-newsprint .hljs-meta { color: #888; }
