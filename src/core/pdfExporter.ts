@@ -130,6 +130,20 @@ export async function exportViaDirect(
           backgroundColor: getComputedStyle(element).backgroundColor,
         },
         jsPDF: { unit: 'mm', format: options.pageSize.toLowerCase() },
+        // Without an explicit pagebreak config, html2pdf slices the rendered
+        // canvas at fixed page-height intervals — cutting through paragraphs,
+        // code blocks, and even individual lines of text. The mode list:
+        //  - 'avoid-all' applies `page-break-inside: avoid` to every element,
+        //    so the lib pushes any element straddling a page boundary onto
+        //    the next page instead of splitting it.
+        //  - 'css' respects explicit `page-break-*` rules.
+        //  - 'legacy' supports `.html2pdf__page-break` markers.
+        // `avoid` adds an extra defense for atomic blocks that must stay
+        // intact (images, code, headings, table rows, list items).
+        pagebreak: {
+          mode: ['avoid-all', 'css', 'legacy'],
+          avoid: ['img', 'pre', 'table', 'tr', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote', 'li'],
+        },
       } as Record<string, unknown>)
       .from(element)
       .save()
