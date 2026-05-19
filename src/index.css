@@ -7,67 +7,84 @@
 }
 
 :root {
+  color-scheme: dark;
+
   --ui-font: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
-  --ui-font-display: 'Fraunces', Georgia, serif;
-  --ui-font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+  --ui-font-mono: 'JetBrains Mono', 'SF Mono', 'Menlo', Consolas, monospace;
 
-  --ui-bg: #faf8f5;
-  --ui-surface: #f2eeea;
-  --ui-header-bg: rgba(250, 248, 245, 0.85);
-  --ui-text: #292524;
-  --ui-text-secondary: #78716c;
-  --ui-text-muted: #a8a29e;
-  --ui-border: #e7e5e4;
-  --ui-border-subtle: #f0eeeb;
+  /* Surfaces */
+  --ui-bg: #0b0b0d;
+  --ui-surface: #131316;
+  --ui-surface-elevated: #1a1a1f;
+  --ui-header-bg: rgba(11, 11, 13, 0.78);
 
-  --ui-accent: #c2410c;
-  --ui-accent-hover: #ea580c;
-  --ui-accent-soft: rgba(194, 65, 12, 0.08);
+  /* Text */
+  --ui-text: #e8e8ea;
+  --ui-text-secondary: #9a9aa3;
+  --ui-text-muted: #5b5b63;
+  --ui-text-faint: #3a3a40;
 
-  --ui-btn-bg: rgba(41, 37, 36, 0.04);
-  --ui-btn-hover: rgba(41, 37, 36, 0.08);
-  --ui-btn-border: rgba(41, 37, 36, 0.1);
+  /* Borders — sharp, 1px, no soft shadows */
+  --ui-border: #1f1f24;
+  --ui-border-strong: #2a2a31;
+  --ui-border-subtle: #16161a;
 
-  --ui-editor-bg: #1c1917;
+  /* Accent — kept warm to preserve brand identity */
+  --ui-accent: #ff6b35;
+  --ui-accent-hover: #ff7a4a;
+  --ui-accent-press: #e85a2a;
+  --ui-accent-soft: rgba(255, 107, 53, 0.12);
+  --ui-accent-glow: rgba(255, 107, 53, 0.18);
+
+  /* Status colors */
+  --ui-live: #4ade80;
+
+  /* Button surfaces */
+  --ui-btn-bg: rgba(255, 255, 255, 0.025);
+  --ui-btn-hover: rgba(255, 255, 255, 0.05);
+  --ui-btn-border: rgba(255, 255, 255, 0.06);
+
+  /* Editor surfaces (dark side) */
+  --ui-editor-bg: #0b0b0d;
   --ui-editor-text: #d6cfc4;
   --ui-editor-muted: #57534e;
-  --ui-editor-line: rgba(255, 255, 255, 0.04);
+  --ui-editor-line: rgba(255, 255, 255, 0.03);
 
-  --ui-shadow-sm: 0 1px 2px rgba(28, 25, 23, 0.05);
-  --ui-shadow-md: 0 4px 16px rgba(28, 25, 23, 0.08);
-  --ui-shadow-lg: 0 8px 32px rgba(28, 25, 23, 0.1), 0 2px 8px rgba(28, 25, 23, 0.04);
+  --ui-radius: 6px;
+  --ui-radius-sm: 4px;
 
-  --ui-radius: 8px;
-  --ui-radius-sm: 5px;
+  --ui-ease: cubic-bezier(0.2, 0, 0, 1);
+  --ui-dur-fast: 120ms;
+  --ui-dur: 180ms;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   :root {
-    --ui-bg: #171412;
-    --ui-surface: #1e1a17;
-    --ui-header-bg: rgba(23, 20, 18, 0.9);
-    --ui-text: #e7e5e4;
-    --ui-text-secondary: #a8a29e;
-    --ui-text-muted: #57534e;
-    --ui-border: #2c2825;
-    --ui-border-subtle: #231f1d;
+    color-scheme: light;
+
+    --ui-bg: #f7f7f8;
+    --ui-surface: #ffffff;
+    --ui-surface-elevated: #ffffff;
+    --ui-header-bg: rgba(247, 247, 248, 0.82);
+
+    --ui-text: #18181b;
+    --ui-text-secondary: #52525b;
+    --ui-text-muted: #8a8a92;
+    --ui-text-faint: #c4c4cc;
+
+    --ui-border: #e7e7ea;
+    --ui-border-strong: #d4d4d8;
+    --ui-border-subtle: #f0f0f2;
 
     --ui-accent: #ea580c;
     --ui-accent-hover: #f97316;
-    --ui-accent-soft: rgba(234, 88, 12, 0.1);
+    --ui-accent-press: #c2410c;
+    --ui-accent-soft: rgba(234, 88, 12, 0.08);
+    --ui-accent-glow: rgba(234, 88, 12, 0.15);
 
-    --ui-btn-bg: rgba(231, 229, 228, 0.05);
-    --ui-btn-hover: rgba(231, 229, 228, 0.08);
-    --ui-btn-border: rgba(231, 229, 228, 0.08);
-
-    --ui-editor-bg: #0f0d0b;
-    --ui-editor-text: #c4bdb3;
-    --ui-editor-muted: #44403c;
-    --ui-editor-line: rgba(255, 255, 255, 0.03);
-
-    --ui-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
-    --ui-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.3);
-    --ui-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.3), 0 2px 8px rgba(0, 0, 0, 0.15);
+    --ui-btn-bg: rgba(0, 0, 0, 0.03);
+    --ui-btn-hover: rgba(0, 0, 0, 0.06);
+    --ui-btn-border: rgba(0, 0, 0, 0.08);
   }
 }
 
@@ -78,11 +95,13 @@ html, body, #root {
 
 body {
   font-family: var(--ui-font);
-  font-size: 14px;
+  font-size: 13px;
+  font-weight: 450;
   color: var(--ui-text);
   background: var(--ui-bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.005em;
 }
 
 .app {
@@ -110,8 +129,8 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -119,12 +138,16 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--ui-border);
-  border-radius: 3px;
+  background: var(--ui-border-strong);
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--ui-text-muted);
+  background-clip: padding-box;
+  border: 2px solid transparent;
 }
 
 @media print {
