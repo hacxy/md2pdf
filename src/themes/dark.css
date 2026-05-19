@@ -111,24 +111,6 @@
 .theme-night .hljs-deletion { color: #ffa198; }
 .theme-night .hljs-meta { color: #b7b3b3; }
 
-/* PDF export: force dark-on-white for Night theme */
-[data-pdf-export].theme-night .hljs { color: #24292e; }
-[data-pdf-export].theme-night .hljs-comment,
-[data-pdf-export].theme-night .hljs-quote { color: #6a737d; }
-[data-pdf-export].theme-night .hljs-keyword,
-[data-pdf-export].theme-night .hljs-selector-tag { color: #d73a49; }
-[data-pdf-export].theme-night .hljs-string,
-[data-pdf-export].theme-night .hljs-addition { color: #032f62; }
-[data-pdf-export].theme-night .hljs-number,
-[data-pdf-export].theme-night .hljs-literal { color: #005cc5; }
-[data-pdf-export].theme-night .hljs-built_in,
-[data-pdf-export].theme-night .hljs-type { color: #6f42c1; }
-[data-pdf-export].theme-night .hljs-title,
-[data-pdf-export].theme-night .hljs-section { color: #6f42c1; }
-[data-pdf-export].theme-night .hljs-name,
-[data-pdf-export].theme-night .hljs-tag { color: #22863a; }
-[data-pdf-export].theme-night .hljs-deletion { color: #b31d28; background: #ffeef0; }
-
 @media print {
   .theme-night {
     --md-color-text: #1f2328;

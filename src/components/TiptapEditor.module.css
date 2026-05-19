@@ -408,22 +408,18 @@
 }
 
 /* ── PDF export ──
-   data-pdf-export is set on the .editorContent element itself by
-   exportViaDirect(). Everything else under it (markdown-body, image-resizer,
-   etc.) is rendered with literal class names — not CSS-module-hashed — so
-   they must live inside :global(...). The previous version used both the
-   wrong selector shape (descendant) and unscoped class names, which is why
-   none of these overrides ever applied. */
-.editorContent[data-pdf-export] {
-  background: #fff !important;
-}
+   data-pdf-export is set on .editorContent itself by exportViaDirect().
+   Descendants (markdown-body etc.) are NOT CSS-module-hashed, so they must
+   live inside :global(...).
 
+   Image alignment (float containment) and the page background (theme bg)
+   are intentionally NOT overridden here — they live in pdfExporter.ts so the
+   PDF inherits the active theme exactly. This file only strips editor-only
+   chrome that has no business in a PDF. */
 .editorContent[data-pdf-export] :global(.markdown-body) {
   max-width: none !important;
 }
 
-/* Strip editor-only chrome: focus rail, resize handles, position toolbar.
-   Without this, transient editor UI gets baked into the PDF. */
 .editorContent[data-pdf-export] :global(.tiptap .has-focus) {
   background: transparent !important;
   box-shadow: none !important;
@@ -436,37 +432,4 @@
 .editorContent[data-pdf-export] :global([data-resize-image-ui]),
 .editorContent[data-pdf-export] :global(.resize-trigger) {
   display: none !important;
-}
-
-/* Image alignment in the editor uses float on wrapper + container, which
-   pollutes the flow of subsequent blocks (text/lists wrap around the image
-   across paragraph/list boundaries). For PDF, neutralize the float and
-   convert it to block-level margin alignment so the image sits in its own
-   row and following content starts cleanly on the next line.
-
-   The lib applies inline styles to both <div class="image-resizer"> (wrapper)
-   and the inner container <div>. Targeting both via attribute-substring
-   matchers because the inline styles are the only signal we have. */
-.editorContent[data-pdf-export] :global(.image-resizer),
-.editorContent[data-pdf-export] :global(.image-resizer > div) {
-  float: none !important;
-  display: block !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  border: none !important;
-}
-
-.editorContent[data-pdf-export] :global(.image-resizer[style*="float: left"]),
-.editorContent[data-pdf-export] :global(.image-resizer > div[style*="float: left"]) {
-  margin: 0 auto 0 0 !important;
-}
-
-.editorContent[data-pdf-export] :global(.image-resizer[style*="float: right"]),
-.editorContent[data-pdf-export] :global(.image-resizer > div[style*="float: right"]) {
-  margin: 0 0 0 auto !important;
-}
-
-.editorContent[data-pdf-export] :global(.image-resizer[style*="margin: 0px auto"]),
-.editorContent[data-pdf-export] :global(.image-resizer > div[style*="margin: 0px auto"]) {
-  margin: 0 auto !important;
 }

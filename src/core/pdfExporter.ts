@@ -39,20 +39,21 @@ export function exportViaPrint(options: ExportOptions): void {
   }
 }
 
+const FLOAT_CONTAINER_TAGS = new Set(['P', 'LI', 'BLOCKQUOTE', 'TD', 'TH', 'FIGURE'])
+
 /**
- * Image alignment in the editor (tiptap-extension-resize-image) uses
- * `float: left/right` on both the wrapper and inner container. In the live
- * editor that's fine, but html2canvas faithfully renders the float — which
- * causes subsequent paragraphs, lists, and headings to wrap around the image,
- * producing a chaotic PDF layout where (e.g.) ordered list numbers stack on
- * the left of the floated image while their text flows on the right.
+ * For each floated image, find the nearest block-level ancestor (paragraph,
+ * list item, blockquote, table cell, …) and turn it into a block formatting
+ * context with `display: flow-root`. This contains the float to its natural
+ * paragraph: text wraps around the image as expected, but the float does NOT
+ * bleed into subsequent blocks (which previously caused following lists or
+ * headings to wrap around the image).
  *
- * Before capture, walk every image NodeView wrapper, snapshot its inline
- * style, then rewrite float/margin into block-level margin alignment so the
- * image sits in its own row. After capture we restore the original styles so
- * the editor state is untouched.
+ * We deliberately do NOT strip the float itself — preserving it is what makes
+ * the PDF match the editor preview when the user has aligned an image left
+ * or right.
  */
-function normalizeImageAlignmentForExport(root: HTMLElement): () => void {
+function containFloatedImagesForExport(root: HTMLElement): () => void {
   const wrappers = Array.from(
     root.querySelectorAll<HTMLElement>('[contenteditable="false"][draggable="true"]'),
   ).filter(el => el.querySelector('img'))
@@ -60,28 +61,20 @@ function normalizeImageAlignmentForExport(root: HTMLElement): () => void {
   const saved: Array<{ el: HTMLElement, cssText: string }> = []
 
   for (const wrapper of wrappers) {
-    const container = wrapper.firstElementChild as HTMLElement | null
-    for (const el of [wrapper, container].filter(Boolean) as HTMLElement[]) {
-      saved.push({ el, cssText: el.style.cssText })
+    if (getComputedStyle(wrapper).float === 'none')
+      continue
 
-      const style = el.style
-      const wasFloatLeft = style.float === 'left'
-      const wasFloatRight = style.float === 'right'
-      const wasCentered = /margin:\s*0(?:px)?\s+auto/.test(el.style.cssText)
-
-      style.float = 'none'
-      style.display = 'block'
-      style.paddingLeft = ''
-      style.paddingRight = ''
-      style.border = ''
-
-      if (wasFloatLeft)
-        style.margin = '0.5em auto 0.5em 0'
-      else if (wasFloatRight)
-        style.margin = '0.5em 0 0.5em auto'
-      else if (wasCentered)
-        style.margin = '0.5em auto'
+    let container: HTMLElement | null = wrapper.parentElement
+    while (container && container !== root) {
+      if (FLOAT_CONTAINER_TAGS.has(container.tagName))
+        break
+      container = container.parentElement
     }
+    if (!container || container === root)
+      continue
+
+    saved.push({ el: container, cssText: container.style.cssText })
+    container.style.display = 'flow-root'
   }
 
   return () => {
@@ -101,7 +94,7 @@ export async function exportViaDirect(
   element.scrollTop = 0
 
   element.setAttribute('data-pdf-export', '')
-  const restoreImageStyles = normalizeImageAlignmentForExport(element)
+  const restoreImageStyles = containFloatedImagesForExport(element)
 
   const images = Array.from(element.querySelectorAll('img'))
   if (images.length > 0) {
@@ -130,6 +123,11 @@ export async function exportViaDirect(
           scrollY: 0,
           windowWidth: element.scrollWidth,
           windowHeight: element.scrollHeight,
+          // Inherit the active theme's background instead of html2canvas's
+          // default #ffffff. Themes (e.g. Night) set --md-color-bg to a dark
+          // color; without this, the PDF page area below the markdown content
+          // would still come out white.
+          backgroundColor: getComputedStyle(element).backgroundColor,
         },
         jsPDF: { unit: 'mm', format: options.pageSize.toLowerCase() },
       } as Record<string, unknown>)
