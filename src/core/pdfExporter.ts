@@ -93,6 +93,13 @@ export async function exportViaDirect(
   element: HTMLElement,
   options: ExportOptions,
 ): Promise<void> {
+  // html2canvas captures starting from the element's current scroll position.
+  // If the user scrolled to find an image (or anything else), the exported PDF
+  // skips the content above the scroll and emits blank pages below it. Reset
+  // scroll to top during capture and restore after.
+  const savedScrollTop = element.scrollTop
+  element.scrollTop = 0
+
   element.setAttribute('data-pdf-export', '')
   const restoreImageStyles = normalizeImageAlignmentForExport(element)
 
@@ -114,7 +121,16 @@ export async function exportViaDirect(
         margin: [10, 10, 10, 10],
         filename: options.fileName,
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, allowTaint: true, logging: false },
+        html2canvas: {
+          scale: 2,
+          useCORS: true,
+          allowTaint: true,
+          logging: false,
+          scrollX: 0,
+          scrollY: 0,
+          windowWidth: element.scrollWidth,
+          windowHeight: element.scrollHeight,
+        },
         jsPDF: { unit: 'mm', format: options.pageSize.toLowerCase() },
       } as Record<string, unknown>)
       .from(element)
@@ -123,5 +139,6 @@ export async function exportViaDirect(
   finally {
     restoreImageStyles()
     element.removeAttribute('data-pdf-export')
+    element.scrollTop = savedScrollTop
   }
 }
